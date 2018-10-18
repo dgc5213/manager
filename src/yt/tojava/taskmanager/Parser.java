@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+/**
+ * Parser class containing methods that deals with parsing the user command to extract meaningful details from it.
+ */
 public class Parser {
 
     protected static String fullCommand;
@@ -15,6 +18,10 @@ public class Parser {
         this.fullCommand = fullCommand;
     }
 
+    /**
+     * @param fullCommand read the full command from the user input
+     * @return Returns a the command word i.e., the first word of the given fullCommand
+     */
     public static String getCommandWord(String fullCommand) {
         fullCommand = fullCommand.trim();  //It returns a copy of this string with leading and trailing white space removed, or this string if it has no leading or trailing white space.
 //        System.out.println("----PARSER----getCommandWord--fullCommand:" + fullCommand);
@@ -28,7 +35,10 @@ public class Parser {
         boolean isExit = true;
     }
 
-
+    /**
+     * @param line read full command
+     * @return return task details
+     */
     private static String filterTaskDetails(String line) {
         String task_detail = "";
         int len = line.split(" ").length; //// to check who many words
@@ -39,6 +49,10 @@ public class Parser {
         return task_detail;
     }
 
+    /**
+     * @param line read full command
+     * @return return task by details
+     */
     public static String filterDoByDetails(String line) {
         String taskdoby_detail = "";
         //// check if the statement contains /by
@@ -52,8 +66,11 @@ public class Parser {
     }
 
 
-
-
+    /**
+     * @param fullCommand read the full command from the user input
+     * @return Returns a Todo object to match the fullCommand.
+     * @throws TaskManagerException show exception error
+     */
     public static Todo addTodo(String fullCommand) throws TaskManagerException {
         String task_detail = filterTaskDetails(fullCommand);
         if (task_detail.isEmpty()) {
@@ -65,6 +82,11 @@ public class Parser {
         }
     }
 
+    /**
+     * @param fullCommand read the full command from the user input
+     * @return Return a Deadline object to match the fullCommand.
+     * @throws TaskManagerException show exception error
+     */
     public static Deadline addDeadline(String fullCommand) throws TaskManagerException {
         String task_detail = filterTaskDetails(fullCommand); ///omit the word add from the task description.
         String task_detail_by = filterDoByDetails(fullCommand);
@@ -76,17 +98,6 @@ public class Parser {
 //        System.out.println("<------!!!->:" + tasks);
         return d;
     }
-
-
-
-//    private static void markAsDone(String fullCommand) {
-//        int index = Integer.parseInt(fullCommand.substring("done".length()).trim());
-//        tasks.get(index - 1).setDone(true);
-//        System.out.println("Tasks in the list: " + tasks.size());
-//        System.out.println("--->Task check true:" + tasks);
-//    }
-
-
 
 
 }

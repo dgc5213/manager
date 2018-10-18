@@ -6,14 +6,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Storage class that will help to load Tasks from the hard disk and save tasks to the hard disk
+ */
 public class Storage {
     private static String file_path;
 
+    /**
+     * @param filePath Declare file path for importing purpose
+     */
     public Storage(String filePath) {
         file_path = filePath;
     }
 
-    /*  Get Tasks From txt File*/
+
+    /**
+     * Load Tasks From txt File and save to list<>
+     *
+     * @return the list of task
+     * @throws FileNotFoundException show the error message if the file is not found
+     */
+
     public List<Task> load() throws FileNotFoundException {
         List<Task> loadedTasks = new ArrayList<>();
         try {
@@ -29,16 +42,14 @@ public class Storage {
         } catch (FileNotFoundException e) {
             printError_file("problem encountered while loading data: " + e.getMessage());
         }
-//        System.out.println("Storage<-----------loadedTasks0----------->:" + loadedTasks.get(0));
-//        System.out.println("Storage<-----------loadedTasks1----------->:" + loadedTasks.get(1));
-//        System.out.println("Storage<-----------loadedTasks2----------->:" + loadedTasks.get(2));
-//        System.out.println("Storage<-----------loadedTasks3----------->:" + loadedTasks.get(3));
         return loadedTasks;
     }
 
-
+    /**
+     * @param tasks Get the tasks from list
+     *              Save the tasks to hard disk as txt file
+     */
     protected static void saveToDisk(List<Task> tasks) {
-
         File out = new File(file_path);
         if (out.exists()) {
             out.delete();
@@ -61,7 +72,11 @@ public class Storage {
         System.out.println("Task save to disk data/tasks.txt");
     }
 
-
+    /**
+     * @param filePath read the file path in the hard disk
+     * @return read the content line by line and save to memory
+     * @throws FileNotFoundException show the error message if the file is not found
+     */
     private static List<String> getLines(String filePath) throws FileNotFoundException {
         File f = new File(filePath); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
@@ -74,14 +89,16 @@ public class Storage {
         return list;
     }
 
-
+    /**
+     * @param line get the task content from txt file
+     * @return create task
+     */
     private static Task createTask(String line) {
         String TaskType = null;
         String TaskDetail;
         String TaskDeadlineDetail = null;
         boolean TaskDone = false;
         String[] line_arr = line.split("\\|");
-
         /* get the value of TaskDetail & TaskDeadlineDetail */
         TaskDetail = line_arr[2];
         // System.out.println("TaskDetail:"+TaskDetail);
@@ -117,10 +134,13 @@ public class Storage {
         return t;
     }
 
+    /**
+     * @param message error message
+     * @throws FileNotFoundException show the error message of file
+     */
     private static void printError_file(String message) throws FileNotFoundException {
         System.out.println(message);
     }
-
 
 
 }

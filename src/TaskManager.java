@@ -1,14 +1,22 @@
-import  yt.tojava.taskmanager.*;
+import yt.tojava.taskmanager.*;
+
 import java.io.FileNotFoundException;
+
 import static javafx.application.Platform.exit;
 
+/**
+ * It is the main class named TaskManager to execute the code
+ */
 public class TaskManager {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
-
-
+    /**
+     *
+     * @param filePath read file path from hard disk
+     * execute to load file
+     */
     public TaskManager(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -21,11 +29,16 @@ public class TaskManager {
         }
     }
 
+    /**
+     *
+     * @throws TaskManagerException show exception error
+     * execute to load program
+     */
     public void run() throws TaskManagerException {
-     Ui.printWelcome();
+        Ui.printWelcome();
         boolean isExit = false;
         while (!isExit) {
-             try {
+            try {
                 String fullCommand = Ui.readUserCommand();
                 String commandWord = Parser.getCommandWord(fullCommand);
                 switch (commandWord) {
@@ -38,24 +51,23 @@ public class TaskManager {
                         tasks.addTask(Parser.addTodo(fullCommand));
                         break;
                     case "deadline":
-                        tasks.addTask(Parser.addDeadline( fullCommand));
+                        tasks.addTask(Parser.addDeadline(fullCommand));
                         break;
                     case "done":
                         tasks.markAsDone(fullCommand);
                         break;
-                    case"print":
+                    case "print":
                         tasks.printTasks();
                         break;
-                    case"save":
+                    case "save":
                         tasks.saveTasks();
                         break;
                     default:
                         System.out.println("Unknown command! please try again");
                         break;
                 }
-            }
-            catch (TaskManagerException e1) {
-             Ui.printError(e1.getMessage());
+            } catch (TaskManagerException e1) {
+                Ui.printError(e1.getMessage());
 
             }
 

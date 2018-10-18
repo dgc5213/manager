@@ -3,6 +3,7 @@ package yt.tojava.taskmanager;
 /**
  * Represents a  deadline task that to be done by a specific date/time.
  * The deadline task is one kind of the task
+ * Deadline class inherit from Todo class
  */
 public class Deadline extends Todo {
 
@@ -26,12 +27,16 @@ public class Deadline extends Todo {
     /**
      * Gets the deadline description of the task.
      *
-     * @return This deadline description (BY)
+     * @return by This deadline description (BY)
      */
     public String getBy() {
         return by;
     }
 
+    /**
+     * The method does override or implement a method declared in a supertype.
+     * The method has a signature that is override-equivalent to that of any public method declared in Object.
+     */
     @Override
     public String toString() {
         return super.toString() + System.lineSeparator() + "do by: " + by;
