@@ -10,33 +10,36 @@ import java.util.Scanner;
  * Storage class that will help to load Tasks from the hard disk and save tasks to the hard disk
  */
 public class Storage {
-    private static String file_path;
+    public static String file_path;
 
     /**
      * @param filePath Declare file path for importing purpose
      */
     public Storage(String filePath) {
-        file_path = filePath;
+        this.file_path = filePath;
     }
 
-
+    /**
+     *
+     * @param file_path read file_path for the purpose of editing path later
+     */
+    public  void setfilePath(String file_path) {
+      this.file_path = file_path;
+    }
     /**
      * Load Tasks From txt File and save to list<>
      *
      * @return the list of task
      * @throws FileNotFoundException show the error message if the file is not found
      */
-
     public List<Task> load() throws FileNotFoundException {
         List<Task> loadedTasks = new ArrayList<>();
         try {
             List<String> lines = getLines(file_path);
-//            System.out.println(lines);
             for (String line : lines) {
                 if (line.trim().isEmpty()) { //ignore empty lines
                     continue;
                 }
-//                System.out.println(line);
                 loadedTasks.add(createTask(line));
             }
         } catch (FileNotFoundException e) {
@@ -69,7 +72,7 @@ public class Storage {
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
-        System.out.println("Task save to disk data/tasks.txt");
+        System.out.println("Task save to disk tasks.txt--->:"+file_path);
     }
 
     /**

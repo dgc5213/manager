@@ -4,8 +4,10 @@ package yt.tojava.taskmanager;
  * Task class contains task description, task status
  */
 public class Task {
+
     protected String description;
     protected boolean isDone;
+    protected String comment;
 
 
     public Task(String description) {
@@ -31,9 +33,16 @@ public class Task {
         isDone = done;
     }
 
+    /**
+     *
+     * @return declare is done status
+     */
     public boolean isDone() {
         return isDone;
     }
+
+
+
 
     /**
      * The method does override or implement a method declared in a supertype.

@@ -9,14 +9,10 @@ import java.util.regex.Pattern;
  */
 public class Parser {
 
-    protected static String fullCommand;
+//    protected static String fullCommand;
 
     protected static List<Task> tasks = new ArrayList<>();
 
-
-    public Parser(String fullCommand) {
-        this.fullCommand = fullCommand;
-    }
 
     /**
      * @param fullCommand read the full command from the user input
@@ -30,16 +26,26 @@ public class Parser {
         return command;
     }
 
-    private static void exit() {
-        System.out.println("Bye!");
-        boolean isExit = true;
+
+    /**
+     *
+     * @param fullCommand read the full command from the user input
+     *  input as edit task_number todo/ dealine
+     * @return as todo/deadline
+     */
+    public static String  getEditTask(String fullCommand){
+        fullCommand = fullCommand.trim();  //It returns a copy of this string with leading and trailing white space removed, or this string if it has no leading or trailing white space.
+        String command = fullCommand.split(" ",3)[2].trim();//extract the first word of the user input
+        return command;
     }
+
+
 
     /**
      * @param line read full command
      * @return return task details
      */
-    private static String filterTaskDetails(String line) {
+    static String filterTaskDetails(String line) {
         String task_detail = "";
         int len = line.split(" ").length; //// to check who many words
         String[] line_arr = line.split(" ", 2);
@@ -82,22 +88,42 @@ public class Parser {
         }
     }
 
+
     /**
      * @param fullCommand read the full command from the user input
      * @return Return a Deadline object to match the fullCommand.
      * @throws TaskManagerException show exception error
      */
     public static Deadline addDeadline(String fullCommand) throws TaskManagerException {
-        String task_detail = filterTaskDetails(fullCommand); ///omit the word add from the task description.
+        String task_detail = filterTaskDetails(fullCommand); ///omit the first keyword add from the task description.
         String task_detail_by = filterDoByDetails(fullCommand);
         task_detail = task_detail.replace("/by" + task_detail_by, "");
-        Deadline d = new Deadline(task_detail, task_detail_by);
-        d.setBy(task_detail_by);
-        tasks.add(d);
-        System.out.println("Tasks in the list:" + tasks.size());
+        if (task_detail.isEmpty()) {
+            throw new TaskManagerException("Empty description for Deadline");
+        } else {
+            Deadline d = new Deadline(task_detail, task_detail_by);
+            d.setBy(task_detail_by);
+            tasks.add(d);
+            System.out.println("Tasks in the list:" + tasks.size());
 //        System.out.println("<------!!!->:" + tasks);
-        return d;
+            return d;
+        }
     }
+
+    /**
+     *
+     * @param fullCommand read the full command from the user input
+     * @param d Return a Deadline object after editing deadline details
+     */
+    protected static void editDeadline(String fullCommand, Deadline d)  {
+        String task_detail = filterTaskDetails(fullCommand);
+        String task_detail_by = filterDoByDetails(fullCommand);
+        task_detail = task_detail.replace("/by" + task_detail_by, "");
+        d.setDescription(task_detail);
+        d.setBy(task_detail_by);
+    }
+
+
 
 
 }

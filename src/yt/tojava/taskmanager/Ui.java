@@ -19,7 +19,7 @@ public class Ui {
      * @return the user input information
      */
     public static String readUserCommand() {
-        System.out.println("Ui<---->Your task?");
+        System.out.println("Your task?");
         return in.nextLine().trim();
 //        Scanner scan = new Scanner(System.in);  // Reading from System.in
 //        String s=scan.nextLine();
@@ -33,12 +33,44 @@ public class Ui {
         System.out.println("Welcome to TaskManager");
     }
 
+
+    /**
+     *
+     * @return ask for the file load option
+     */
+    public static String readFileLoadOptionCommand() {
+        System.out.println("Would you like to load file from hard disk?");
+        System.out.println("Please enter: Y/N");
+        return in.nextLine().trim();
+    }
+
+    /**
+     *
+     * @return ask for the file save option: default path or new path
+     */
+    public static String askFileSaveCommand() {
+        System.out.println("Would you like to save task to DefaultPath (Overwrite) or NewPath?");
+        System.out.println("Please enter: DP/NP");
+        return in.nextLine().trim();
+    }
+
+    /**
+     *
+     * @return ask for the new path
+     */
+    public static String getNewPathCommand() {
+        System.out.println("Please enter New Path( C:\\Users\\user\\Desktop\\...):");
+        return in.nextLine().trim();
+    }
+
+
+
     /**
      * @param s message
      * @return return the message that need to show to the user
      */
-    public String showToUser(String s) {
-        return s;
+    public static void showToUser(String s) {
+        System.out.println(s);
     }
 
     /**

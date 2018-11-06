@@ -14,6 +14,8 @@ public class Todo extends Task {
         super(description);
         //isDone = false;
     }
+    public void setDescription(String description) {        this.description = description;
+    }
 
 //    public void setDone(boolean done) {
 //        isDone = done;

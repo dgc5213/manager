@@ -1,7 +1,2 @@
-T | 1 | read book
-T | 0 | join sports club
-D | 1 | return book | June 6th
-D | 0 | return EEEEbook | Oct 23th
-D | 1 |write report | this Friday 4pm
-T | 1 |read book
-T | 0 |rejsdl 2342
+T | 0 | read book
+D | 0 |write report | this Friday 4pm

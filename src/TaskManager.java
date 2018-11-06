@@ -1,6 +1,7 @@
 import yt.tojava.taskmanager.*;
 
-import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static javafx.application.Platform.exit;
 
@@ -13,41 +14,54 @@ public class TaskManager {
     private Ui ui;
 
     /**
-     *
      * @param filePath read file path from hard disk
-     * execute to load file
+     *        execute to load file or create empty list
      */
     public TaskManager(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        try {
-            tasks = new TaskList(storage.load());
-            System.out.println("Loaded file to task list");
-        } catch (FileNotFoundException e) {
-            ui.showToUser("Problem reading file. Starting with an empty task list");
-            tasks = new TaskList();
+        String loadOption = Ui.readFileLoadOptionCommand();
+        loadOption = loadOption.toUpperCase();
+        System.out.println(loadOption);
+
+        if (loadOption.equals("Y")) {
+            try {
+                tasks = new TaskList(storage.load());
+                System.out.println("Loaded file to task list");
+            } catch (java.io.FileNotFoundException e) {
+                Ui.showToUser("Problem reading file. Starting with an empty task list");
+                tasks = new TaskList();
+            }
+        } else if (loadOption.equals("N")) {
+            Ui.showToUser("Starting with an empty task list");
+            List<Task> empList = new ArrayList<>();
+            tasks = new TaskList(empList);
+        } else {
+            Ui.showToUser("Invalid. Please enter option again.");
+            // Terminate JVM
+            System.exit(0);
         }
+        exit();
+
     }
 
     /**
-     *
-     * @throws TaskManagerException show exception error
-     * execute to load program
+     * execute task manager functions
      */
-    public void run() throws TaskManagerException {
+    public void run() {
         Ui.printWelcome();
         boolean isExit = false;
         while (!isExit) {
             try {
                 String fullCommand = Ui.readUserCommand();
                 String commandWord = Parser.getCommandWord(fullCommand);
+
                 switch (commandWord) {
                     case "exit":
                     case "":
                         isExit = true;
                         break;
                     case "todo":
-
                         tasks.addTask(Parser.addTodo(fullCommand));
                         break;
                     case "deadline":
@@ -56,11 +70,41 @@ public class TaskManager {
                     case "done":
                         tasks.markAsDone(fullCommand);
                         break;
+                    case "notdone":
+                        tasks.markAsNotDone(fullCommand);
+                        break;
+                    case "edit":
+                        tasks.markAsEdit(fullCommand);
+                        break;
                     case "print":
                         tasks.printTasks();
                         break;
+                    case "remove":
+                        tasks.removeTask(fullCommand);
+                        break;
                     case "save":
-                        tasks.saveTasks();
+                        String pathOption = Ui.askFileSaveCommand();
+                        pathOption = pathOption.toUpperCase();
+                        System.out.println(pathOption);
+                        switch (pathOption) {
+                            case "DP":
+                                tasks.saveTasks();
+                                break;
+                            case "NP":
+                                String newPath = Ui.getNewPathCommand();
+                                System.out.println("New Path:" + newPath);
+                                storage.setfilePath(newPath);
+                                tasks.saveTasks();
+                                break;
+                            default:
+                                Ui.showToUser("Invalid. Please try it again.");
+                                System.exit(0);
+                                break;
+                        }
+
+                        break;
+                    case "clear":
+                        tasks.clearTask();
                         break;
                     default:
                         System.out.println("Unknown command! please try again");
@@ -68,15 +112,13 @@ public class TaskManager {
                 }
             } catch (TaskManagerException e1) {
                 Ui.printError(e1.getMessage());
-
             }
 
         }
         exit();
     }
 
-    public static void main(String[] args) throws TaskManagerException {
-
+    public static void main(String[] args) {
         String file_path = "C:\\Users\\user\\Desktop\\CodeYear2S1\\TIC2002SE_JavaCode\\TaskManager\\src\\tasks.txt";
         new TaskManager(file_path).run();
     }
