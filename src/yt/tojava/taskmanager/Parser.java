@@ -9,8 +9,6 @@ import java.util.regex.Pattern;
  */
 public class Parser {
 
-//    protected static String fullCommand;
-
     protected static List<Task> tasks = new ArrayList<>();
 
 
@@ -20,25 +18,21 @@ public class Parser {
      */
     public static String getCommandWord(String fullCommand) {
         fullCommand = fullCommand.trim();  //It returns a copy of this string with leading and trailing white space removed, or this string if it has no leading or trailing white space.
-//        System.out.println("----PARSER----getCommandWord--fullCommand:" + fullCommand);
         String command = fullCommand.split(" ")[0];//extract the first word of the user input
-//        System.out.println("----PARSER----getCommandWord------firstword:" + command);
         return command;
     }
 
 
     /**
-     *
      * @param fullCommand read the full command from the user input
-     *  input as edit task_number todo/ dealine
+     *                    input as edit task_number todo/ dealine
      * @return as todo/deadline
      */
-    public static String  getEditTask(String fullCommand){
+    public static String getEditTask(String fullCommand) {
         fullCommand = fullCommand.trim();  //It returns a copy of this string with leading and trailing white space removed, or this string if it has no leading or trailing white space.
-        String command = fullCommand.split(" ",3)[2].trim();//extract the first word of the user input
+        String command = fullCommand.split(" ", 3)[2].trim();//extract the first word of the user input
         return command;
     }
-
 
 
     /**
@@ -105,25 +99,21 @@ public class Parser {
             d.setBy(task_detail_by);
             tasks.add(d);
             System.out.println("Tasks in the list:" + tasks.size());
-//        System.out.println("<------!!!->:" + tasks);
             return d;
         }
     }
 
     /**
-     *
      * @param fullCommand read the full command from the user input
-     * @param d Return a Deadline object after editing deadline details
+     * @param d           Return a Deadline object after editing deadline details
      */
-    protected static void editDeadline(String fullCommand, Deadline d)  {
+    protected static void editDeadline(String fullCommand, Deadline d) {
         String task_detail = filterTaskDetails(fullCommand);
         String task_detail_by = filterDoByDetails(fullCommand);
         task_detail = task_detail.replace("/by" + task_detail_by, "");
         d.setDescription(task_detail);
         d.setBy(task_detail_by);
     }
-
-
 
 
 }

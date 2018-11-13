@@ -20,12 +20,12 @@ public class Storage {
     }
 
     /**
-     *
      * @param file_path read file_path for the purpose of editing path later
      */
-    public  void setfilePath(String file_path) {
-      this.file_path = file_path;
+    public void setfilePath(String file_path) {
+        this.file_path = file_path;
     }
+
     /**
      * Load Tasks From txt File and save to list<>
      *
@@ -72,7 +72,7 @@ public class Storage {
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
-        System.out.println("Task save to disk tasks.txt--->:"+file_path);
+        System.out.println("Task save to disk tasks.txt--->:" + file_path);
     }
 
     /**

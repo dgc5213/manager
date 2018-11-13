@@ -1,2 +1,2 @@
-T | 0 | read book
+T | 0 |read eBook
 D | 0 |write report | this Friday 4pm

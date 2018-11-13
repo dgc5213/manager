@@ -14,16 +14,11 @@ public class Todo extends Task {
         super(description);
         //isDone = false;
     }
-    public void setDescription(String description) {        this.description = description;
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-//    public void setDone(boolean done) {
-//        isDone = done;
-//    }
-
-//    public boolean isDone() {
-//        return isDone;
-//    }
 
     /**
      * The method does override or implement a method declared in a supertype.

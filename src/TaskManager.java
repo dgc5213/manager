@@ -15,7 +15,7 @@ public class TaskManager {
 
     /**
      * @param filePath read file path from hard disk
-     *        execute to load file or create empty list
+     *                 execute to load file or create empty list
      */
     public TaskManager(String filePath) {
         ui = new Ui();
@@ -24,22 +24,25 @@ public class TaskManager {
         loadOption = loadOption.toUpperCase();
         System.out.println(loadOption);
 
-        if (loadOption.equals("Y")) {
-            try {
-                tasks = new TaskList(storage.load());
-                System.out.println("Loaded file to task list");
-            } catch (java.io.FileNotFoundException e) {
-                Ui.showToUser("Problem reading file. Starting with an empty task list");
-                tasks = new TaskList();
-            }
-        } else if (loadOption.equals("N")) {
-            Ui.showToUser("Starting with an empty task list");
-            List<Task> empList = new ArrayList<>();
-            tasks = new TaskList(empList);
-        } else {
-            Ui.showToUser("Invalid. Please enter option again.");
-            // Terminate JVM
-            System.exit(0);
+        switch (loadOption) {
+            case "Y":
+                try {
+                    tasks = new TaskList(storage.load());
+                    System.out.println("Loaded file to task list");
+                } catch (java.io.FileNotFoundException e) {
+                    Ui.showToUser("Problem reading file. Starting with an empty task list");
+                    tasks = new TaskList();
+                }
+                break;
+            case "N":
+                Ui.showToUser("Starting with an empty task list");
+                List<Task> empList = new ArrayList<>();
+                tasks = new TaskList(empList);
+                break;
+            default:
+                Ui.showToUser("Invalid. Please enter option again.");
+                // Terminate JVM
+                System.exit(0);
         }
         exit();
 

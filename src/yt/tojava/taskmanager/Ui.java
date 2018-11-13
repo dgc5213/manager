@@ -35,7 +35,6 @@ public class Ui {
 
 
     /**
-     *
      * @return ask for the file load option
      */
     public static String readFileLoadOptionCommand() {
@@ -45,7 +44,6 @@ public class Ui {
     }
 
     /**
-     *
      * @return ask for the file save option: default path or new path
      */
     public static String askFileSaveCommand() {
@@ -55,7 +53,6 @@ public class Ui {
     }
 
     /**
-     *
      * @return ask for the new path
      */
     public static String getNewPathCommand() {
@@ -64,10 +61,8 @@ public class Ui {
     }
 
 
-
     /**
      * @param s message
-     * @return return the message that need to show to the user
      */
     public static void showToUser(String s) {
         System.out.println(s);
