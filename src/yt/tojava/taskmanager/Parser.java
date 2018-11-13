@@ -77,7 +77,7 @@ public class Parser {
             throw new TaskManagerException("Empty description for TODO");
         } else {
             tasks.add(new Todo(task_detail));
-            System.out.println("Tasks in the list:" + tasks.size());
+            System.out.println("Task is added in the list");
             return new Todo(task_detail);
         }
     }
@@ -98,7 +98,7 @@ public class Parser {
             Deadline d = new Deadline(task_detail, task_detail_by);
             d.setBy(task_detail_by);
             tasks.add(d);
-            System.out.println("Tasks in the list:" + tasks.size());
+            System.out.println("Task is added in the list");
             return d;
         }
     }
