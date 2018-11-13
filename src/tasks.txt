@@ -1,3 +1,4 @@
-T | 1 |Read eBook
-D | 0 |write report | this Friday 4pm
+T | 0 |Read eBook
+D | 0 |Write Report | Nov 13th 5pm
 T | 0 |Submit Report
+T | 0 |Run Program

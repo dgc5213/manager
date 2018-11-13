@@ -109,6 +109,9 @@ public class TaskList {
                 Parser.editDeadline(newTaskCommand, d);
                 System.out.println("After editing the deadline:" + d);
                 break;
+            default:
+                System.out.println("Unknown command! Please try again");
+                break;
         }
 
     }
